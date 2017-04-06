@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+	<context:component-scan base-package="com.ncaa.controller" />
+ 
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- property name="url" value="jdbc:mysql://127.0.0.1:3306/nba" /-->
+		<property name="url" value="jdbc:mysql://ec2-52-41-13-6.us-west-2.compute.amazonaws.com:3306/ncaa" />
+		<property name="username" value="root" />
+		<property name="password" value="MNSing1" />
+	</bean>
+	
+	<bean id="DataDao" class="com.ncaa.dao.DataDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean name="NCAAService" class="com.ncaa.service.NCAAService"></bean>
+	 
+</beans>
